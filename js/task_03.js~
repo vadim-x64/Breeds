@@ -1,0 +1,58 @@
+import { breeds } from './data_sample.js';
+
+const list = document.querySelector("ul#breeds");
+
+// Масив для збереження всіх елементів <li>
+const items = [];
+
+breeds.forEach(breed => {
+    const li = document.createElement("li");
+    li.classList.add("card");
+
+    // Створюємо та додаємо зображення
+    const img = document.createElement("img");
+    if (breed.reference_image_id) {
+        img.src = `https://cdn2.thedogapi.com/images/${breed.reference_image_id}.jpg`;
+    } else {
+        img.alt = "No image available";
+    }
+    li.appendChild(img);
+
+    // Назва породи
+    const h2 = document.createElement("h2");
+    h2.textContent = breed.name;
+    li.appendChild(h2);
+
+    // Групи (одна або декілька)
+    if (breed.breed_group) {
+        const groupP = document.createElement("p");
+        groupP.classList.add("group");
+        groupP.textContent = breed.breed_group;
+        li.appendChild(groupP);
+    }
+
+    if (breed.breed_type) {
+        const typeP = document.createElement("p");
+        typeP.classList.add("group");
+        typeP.textContent = breed.breed_type;
+        li.appendChild(typeP);
+    }
+
+    // Темперамент
+    if (breed.temperament) {
+        const temperamentP = document.createElement("p");
+        temperamentP.textContent = breed.temperament;
+        li.appendChild(temperamentP);
+    }
+
+    // Вага
+    const weightP = document.createElement("p");
+    weightP.innerHTML = `Weight: <span>${breed.weight?.metric || "N/A"} kg</span>`;
+    li.appendChild(weightP);
+
+    // Додаємо <li> до масиву
+    items.push(li);
+});
+
+// Додаємо всі елементи за одну операцію
+list.append(...items);

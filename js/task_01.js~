@@ -1,0 +1,14 @@
+// Отримуємо всі елементи з класом "item"
+const categories = document.querySelectorAll('li.item');
+
+// Виводимо кількість категорій
+console.log(`Кількість категорій: ${categories.length}`);
+
+// Перебираємо кожну категорію
+categories.forEach(category => {
+    const title = category.querySelector('h2').textContent; // Заголовок
+    const itemsCount = category.querySelectorAll('ul li').length; // Кількість елементів
+
+    console.log(`Категорія: ${title}`);
+    console.log(`Кількість елементів: ${itemsCount}`);
+});
